@@ -2,6 +2,7 @@ package com.library.impl;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,13 @@ public class BookstoreImpl implements BookStore {
 		// TODO Auto-generated method stub
 		
 		return bookStore.findAll();
+	}
+	
+	@Override
+	public Optional<BookEntity> getBookById(String id) {
+		// TODO Auto-generated method stub
+		
+		return bookStore.findById(Long.parseLong(id));
 	}
 
 }

@@ -1,12 +1,15 @@
 package com.library.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.library.beans.BookDetail;
 import com.library.beans.BookEntity;
 import com.library.service.BookStore;
 
@@ -15,7 +18,6 @@ public class BookController {
 	
 	@Autowired
     private BookStore bookStore;
-	
 	@GetMapping("/bookStore/{name}/{author}")
 	public BookEntity saveBook1(@PathVariable String name,@PathVariable String author) {
 		BookEntity entity=new BookEntity();
@@ -29,6 +31,16 @@ public class BookController {
 	@GetMapping("/bookStore")
 	public List<BookEntity> getAllBooks(){
 		return bookStore.getAllBooks();
+	}
+	
+	@GetMapping("/bookStore/{id}")
+	public BookDetail getBookById(@PathVariable String id){
+		ModelMapper modelMapper=new ModelMapper();
+		Optional<BookEntity> entity= bookStore.getBookById(id);
+		if(entity.isPresent()) {
+			return modelMapper.map(entity.get(), BookDetail.class);
+		}
+		return null;
 	}
 
 }
