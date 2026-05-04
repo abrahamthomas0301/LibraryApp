@@ -1,5 +1,6 @@
 package com.library.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,18 +20,33 @@ public class BookController {
 	@Autowired
     private BookStore bookStore;
 	@GetMapping("/bookStore/{name}/{author}")
-	public BookEntity saveBook1(@PathVariable String name,@PathVariable String author) {
+	public BookDetail saveBook(@PathVariable String name,@PathVariable String author) {
 		BookEntity entity=new BookEntity();
 		entity.setAuthorName(author);
 		entity.setBookName(name);
-		bookStore.saveBook1(entity);
+		bookStore.saveBook(entity);
 		System.out.println("saved");
-		return entity;
+		ModelMapper modelMapper=new ModelMapper();
+		return modelMapper.map(entity, BookDetail.class);
 	}
 	
 	@GetMapping("/bookStore")
 	public List<BookEntity> getAllBooks(){
 		return bookStore.getAllBooks();
+	}
+	
+	@GetMapping("/bookStoreDetails")
+	public List<BookDetail> getAllBooksDetails(){
+		List<BookEntity> bookEntity= bookStore.getAllBooks();
+		 List<BookDetail> bookDetailList=new ArrayList<>();
+		 
+		if(!bookEntity.isEmpty()) {
+			for(BookEntity entity: bookEntity) {
+				ModelMapper modelMapper=new ModelMapper();
+				bookDetailList.add(modelMapper.map(entity, BookDetail.class));
+			}
+		}
+		return bookDetailList;
 	}
 	
 	@GetMapping("/bookStore/{id}")

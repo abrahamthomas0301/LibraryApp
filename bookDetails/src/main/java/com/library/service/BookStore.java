@@ -7,7 +7,7 @@ import com.library.beans.BookEntity;
 
 
 public interface BookStore {
-	public BookEntity saveBook1(BookEntity entity);
+	public BookEntity saveBook(BookEntity entity);
 
 	List<BookEntity> getAllBooks();
 

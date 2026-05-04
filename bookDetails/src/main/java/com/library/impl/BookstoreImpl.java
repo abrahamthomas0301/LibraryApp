@@ -16,7 +16,7 @@ public class BookstoreImpl implements BookStore {
 	@Autowired
     private BookRepository  bookStore;
 	@Override
-	public BookEntity saveBook1(BookEntity entity) {
+	public BookEntity saveBook(BookEntity entity) {
 		// TODO Auto-generated method stub
 		bookStore.save(entity);
 		return entity;
