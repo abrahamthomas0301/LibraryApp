@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.library.beans.BookDetail;
@@ -58,5 +62,28 @@ public class BookController {
 		}
 		return null;
 	}
+	
+	@DeleteMapping("/bookStore/{id}")
+	public boolean deleteBookById(@PathVariable String id){
+		ModelMapper modelMapper=new ModelMapper();
+		Optional<BookEntity> entity= bookStore.getBookById(id);
+		String deleteResult = StringUtils.EMPTY;
+		if(entity.isPresent()) {
+			deleteResult=bookStore.deleteBookById(id);
+		}
+		return deleteResult.equalsIgnoreCase(id);
+	}
 
+	
+	@PutMapping("/bookStore/{id}")
+	public boolean updateBookById(@PathVariable String id,@RequestBody BookDetail detail){
+		ModelMapper modelMapper=new ModelMapper();
+		Optional<BookEntity> entity= bookStore.getBookById(id);
+		if(entity.isPresent()) {
+			BookEntity updatedEntity=entity.get();
+			modelMapper.map(detail,updatedEntity);
+			bookStore.saveBook(updatedEntity);
+		}
+		return false;
+	}
 }

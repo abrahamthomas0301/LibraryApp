@@ -3,8 +3,11 @@ package com.libraryApp.Apigateway.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +36,13 @@ public class ApiController {
 		return bookstoreClient.getBookById(id);
 	}
 	
+	@DeleteMapping("/bookStore/{id}")
+	public boolean deleteBookById(@PathVariable String id) {
+		return bookstoreClient.deleteBookById(id);
+	}
 	
+	@PutMapping("/bookStore/{id}")
+	public boolean updateBookById(@PathVariable String id,@RequestBody BookDetail detail) {
+		return bookstoreClient.updateBookById(id, detail);
+	}
 }

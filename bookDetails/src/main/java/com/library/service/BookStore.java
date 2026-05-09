@@ -12,5 +12,7 @@ public interface BookStore {
 	List<BookEntity> getAllBooks();
 
 	Optional<BookEntity> getBookById(String id);
+	
+	String deleteBookById(String id);
 		
 }

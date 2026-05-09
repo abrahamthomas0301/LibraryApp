@@ -35,5 +35,14 @@ public class BookstoreImpl implements BookStore {
 		
 		return bookStore.findById(Long.parseLong(id));
 	}
+	
+	@Override
+	public String deleteBookById(String id) {
+		// TODO Auto-generated method stub
+		
+		 bookStore.deleteById(Long.parseLong(id));
+		 return id;
+	}
+	
 
 }
