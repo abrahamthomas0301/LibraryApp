@@ -29,3 +29,9 @@ run command.txt
 *.db
 bookDetails/librarydata.db
 *.db
+/target/
+/.settings
+JWTtoken/.classpath
+JWTtoken/.project
+/JWTtoken/.settings
+*.db
